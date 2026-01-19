@@ -1,0 +1,8 @@
+{
+  "Parent": "Deco_Scroll",
+  "TranslationProperties": {
+    "Name": "Portal Scroll",
+    "Description": "Create a portal between two locations."
+  },
+  "MaxStack": 16
+}

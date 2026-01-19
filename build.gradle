@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.3'
 }
 
+repositories {
+    mavenCentral()
+}
+
 import org.gradle.internal.os.OperatingSystem
 
 ext {
@@ -49,6 +53,13 @@ javadoc {
 // the official launcher for now.
 dependencies {
     implementation(files("$hytaleHome/install/$patchline/package/game/latest/Server/HytaleServer.jar"))
+    implementation 'org.postgresql:postgresql:42.7.4'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
+    implementation 'org.hibernate.orm:hibernate-hikaricp:6.4.4.Final'
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
 }
 
 // Create the working directory to run the server if it does not already exist.
@@ -79,7 +90,7 @@ tasks.named('processResources') {
 }
 
 def createServerRunArguments(String srcDir) {
-    def programParameters = '--allow-op --disable-sentry --assets="' + "${hytaleHome}/install/$patchline/package/game/latest/Assets.zip" + '"'
+    def programParameters = '--allow-op --disable-sentry --disable-file-watcher --assets="' + "${hytaleHome}/install/$patchline/package/game/latest/Assets.zip" + '"'
     def modPaths = []
     if (includes_pack.toBoolean()) {
         modPaths << srcDir
@@ -99,7 +110,7 @@ idea.project.settings.runConfigurations {
     'HytaleServer'(org.jetbrains.gradle.ext.Application) {
         mainClass = 'com.hypixel.hytale.Main'
         moduleName = project.idea.module.name + '.main'
-        programParameters = createServerRunArguments(sourceSets.main.java.srcDirs.first().parentFile.absolutePath)
+        programParameters = createServerRunArguments(sourceSets.main.resources.srcDirs.first().absolutePath)
         workingDirectory = serverRunDir.absolutePath
     }
 }
@@ -127,5 +138,11 @@ tasks.register('generateVSCodeLaunch') {
             ]
         ]
         launchFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(launchConfig))
+    }
+
+    processResources {
+        from(sourceSets.main.resources) {
+            include '**/*'
+        }
     }
 }
