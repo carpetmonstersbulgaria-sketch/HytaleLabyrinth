@@ -1,0 +1,22 @@
+{
+    "Group": "Labyrinth",
+    "Name": "Labyrinth",
+    "Version": "0.0.1",
+    "Description": "Hytale Labyrinth plugin",
+    "Authors": [
+        {
+            "Name": "Hugo Piat-Lillo"
+        }
+    ],
+    "Website": "",
+    "ServerVersion": "*",
+    "Dependencies": {
+        
+    },
+    "OptionalDependencies": {
+        
+    },
+    "DisabledByDefault": false,
+    "Main": "com.labyrinth.Program",
+    "IncludesAssetPack": true
+}
