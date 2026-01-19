@@ -4,5 +4,5 @@
     "Name": "Portal Scroll",
     "Description": "Create a portal between two locations."
   },
-  "MaxStack": 16
+  "MaxStack": 1
 }

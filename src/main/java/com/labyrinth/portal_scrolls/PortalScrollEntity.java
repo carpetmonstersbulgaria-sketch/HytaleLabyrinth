@@ -9,19 +9,26 @@ import lombok.*;
 @Table(name = "scrolls_portals")
 public class PortalScrollEntity {
 
+    public static final String HYTALE_ID = "Portal_Scroll";
+    public static final String PORTAL_HYTALE_ID = "Portal_Return";
+    public static final String METADATA_ID = "scroll_id";
+
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
-    private double x;
-    private double y;
-    private double z;
+    private Double x;
+    private Double y;
+    private Double z;
 
-    @Column(nullable = false)
     private String world;
 
     public Location toLocation() {
         return new Location(world, x, y, z);
+    }
+
+    public boolean hasLocation() {
+        return world != null && x != null && y != null && z != null;
     }
 
     public void fromLocation(Location loc) {

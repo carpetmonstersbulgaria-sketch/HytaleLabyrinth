@@ -37,15 +37,15 @@ public class DatabaseConfig extends ConfigBase {
     }
 
     public long getIdleTimeout() {
-        return (long) getInt("pool.idleTimeout", 600000);
+        return getInt("pool.idleTimeout", 600000);
     }
 
     public long getConnectionTimeout() {
-        return (long) getInt("pool.connectionTimeout", 30000);
+        return getInt("pool.connectionTimeout", 30000);
     }
 
     public long getMaxLifetime() {
-        return (long) getInt("pool.maxLifetime", 1800000);
+        return getInt("pool.maxLifetime", 1800000);
     }
 
     public String getJdbcUrl() {
